@@ -20,7 +20,7 @@ class ListStudents extends Component {
   }
 
   addStudent() {
-    this.props.history.push('/addstudent');
+    this.props.history.push('/addStudent');
   }
 
   view(id) {

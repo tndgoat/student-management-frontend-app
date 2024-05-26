@@ -65,8 +65,8 @@ class AddStudent extends Component {
                         value={this.state.ayear} onChange={this.changeAYearHandler}
                       />
                     </div>
-                    <button className="btn btn-success" onClick={this.save}>Add</button>
-                    <button className="btn btn-danger" onClick={this.cancel}>Quit</button>
+                    <button className="btn btn-success" onClick={this.save}>Save</button>
+                    <button className="btn btn-danger" onClick={this.cancel}>Cancel</button>
                   </form>
                 </div>
               </div>

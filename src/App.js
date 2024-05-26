@@ -16,13 +16,13 @@ function App() {
         <div className="container">
           <Header />
           <Routes>
-\           <Route exact path="/" ListStudents />
-            <Route exact path="/studentsList" component={ListStudents} />
-            <Route exact path="/addstudent" component={AddStudent} />
-            <Route exact path="/viewStudent/:id" component={Student} />
-            <Route exact path="/updateStudent/:id" component={UpdateStudent} />
-            <Route exact path="/deleteStudent/:id" component={DeleteStudent} />
-\         </Routes>
+            <Route exact path="/" element={<ListStudents/>} />
+            <Route exact path="/studentsList" element={<ListStudents/>} />
+            <Route exact path="/addStudent" element={<AddStudent/>} />
+            <Route exact path="/viewStudent/:id" element={<Student/>} />
+            <Route exact path="/updateStudent/:id" element={<UpdateStudent/>} />
+            <Route exact path="/deleteStudent/:id" element={<DeleteStudent/>} />
+          </Routes>
           <Footer />
         </div>
       </Router>

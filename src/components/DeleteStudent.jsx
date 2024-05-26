@@ -46,7 +46,7 @@ class DeleteStudent extends Component {
           </div>
         </div>
         <button className='btn btn-danger' onClick={this.cancel}>
-          cancel
+          Cancel
         </button>
       </div>
     );

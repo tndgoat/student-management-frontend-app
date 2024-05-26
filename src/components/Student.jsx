@@ -42,7 +42,7 @@ class Student extends Component {
                         </div>
                     </div>
                 </div>
-                <button className="btn btn-danger" onClick={this.cancel}>cancel</button>
+                <button className="btn btn-danger" onClick={this.cancel}>Cancel</button>
             </div>
         );
     }
