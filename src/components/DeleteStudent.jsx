@@ -1,56 +1,41 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import StudentService from '../services/StudentService';
 
-class DeleteStudent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      id: this.props.match.params.id,
-      students: {}
-    };
-    this.cancel = this.cancel.bind(this);
-  }
+const DeleteStudent = () => {
+  const { id } = useParams();
+  const [student, setStudent] = useState({});
 
-  componentDidMount() {
-    StudentService.getStudentsById(this.state.id).then(response => {
-      this.setState({ students: response.data });
+  useEffect(() => {
+    StudentService.getStudentById(id).then(response => {
+      setStudent(response.data);
     });
-    StudentService.deleteStudentById(this.state.id);
-  }
+  }, [id]);
 
-  cancel() {
-    this.props.history.push('/');
-  }
+  const deleteHandler = () => {
+    StudentService.deleteStudentById(id).then(() => {
+      // Redirect to a different page after deletion
+      window.location.href = '/'; // Redirect to the students page
+    }).catch(error => {
+      console.error('Error deleting student:', error);
+    });
+  };
 
-  render() {
-    return (
-      <div className='container'>
-        <h1>Delete Student Page</h1>
-        <h3>Below Student is Deleted From DB</h3>
-        <div className='card'>
-          <div className='card-body'>
-            <div className='row'>
-              <label>Student ID</label>
-              <div>{this.state.students.id}</div>
-            </div>
-
-            <div className='row'>
-              <label>Student Name</label>
-              <div>{this.state.students.name}</div>
-            </div>
-
-            <div className='row'>
-              <label>Academic Year</label>
-              <div>{this.state.students.ayear}</div>
-            </div>
-          </div>
-        </div>
-        <button className='btn btn-danger' onClick={this.cancel}>
-          Cancel
-        </button>
+  return (
+    <div>
+      <h2>Delete Student</h2>
+      <div>
+        <strong>ID:</strong> {student.id}
       </div>
-    );
-  }
-}
+      <div>
+        <strong>Name:</strong> {student.name}
+      </div>
+      <div>
+        <strong>Academic Year:</strong> {student.ayear}
+      </div>
+      <button className="btn btn-danger" onClick={deleteHandler}>Delete</button>
+    </div>
+  );
+};
 
 export default DeleteStudent;

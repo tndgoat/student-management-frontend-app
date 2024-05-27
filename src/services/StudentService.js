@@ -16,10 +16,6 @@ class StudentService {
       return axios.get(BASE_API + "/find/" + id);
      }
 
-     updateStudent(id, student) {
-      return axios.put(BASE_API + "/update/" + id, student);
-     }
-
      deleteStudentById(id) {
       return axios.delete(BASE_API + "/delete/" + id);
      }
