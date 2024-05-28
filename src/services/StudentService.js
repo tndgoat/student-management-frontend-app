@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_API = "http://localhost:9000/api/students";
+const BASE_API = "https://studentmanagementbackendapp-production.up.railway.app";
 
 class StudentService {
 
