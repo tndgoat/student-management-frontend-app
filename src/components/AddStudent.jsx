@@ -20,12 +20,21 @@ const AddStudent = () => {
     setAyear(event.target.value);
   };
 
-  const save = (e) => {
+  const save = async (e) => {
     e.preventDefault();
     const student = { id, name, ayear };
-    console.log(student);
-    StudentService.insertStudent(student);
-    navigate("/");
+
+    try {
+      const response = await StudentService.checkStudentIdExists(id);
+      if (response.data) {
+        alert("Cannot add. Student ID already exists");
+      } else {
+        await StudentService.insertStudent(student);
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("There was an error checking the student ID!", error);
+    }
   };
 
   const cancel = () => {
@@ -42,19 +51,43 @@ const AddStudent = () => {
               <form>
                 <div className="form-group">
                   <label htmlFor="id">Student ID</label>
-                  <input type="number" className="form-control" id="id" placeholder="Enter Student ID"
-                    value={id} onChange={changeIdHandler} required
+                  <input 
+                    type="number" 
+                    className="form-control" 
+                    id="id" 
+                    placeholder="Enter Student ID"
+                    value={id} 
+                    onChange={changeIdHandler} 
+                    required
                   />
                   <label htmlFor="name">Student Name</label>
-                  <input type="text" className="form-control" id="name" placeholder="Enter Student Name"
-                    value={name} onChange={changeNameHandler} required
+                  <input 
+                    type="text" 
+                    className="form-control" 
+                    id="name" 
+                    placeholder="Enter Student Name"
+                    value={name} 
+                    onChange={changeNameHandler} 
+                    required
                   />
                   <label htmlFor="ayear">Academic Year</label>
-                  <input type="number" className="form-control" id="ayear" placeholder="Enter Academic Year"
-                    value={ayear} onChange={changeAYearHandler} required
+                  <input 
+                    type="number" 
+                    className="form-control" 
+                    id="ayear" 
+                    placeholder="Enter Academic Year"
+                    value={ayear} 
+                    onChange={changeAYearHandler} 
+                    required
                   />
                 </div>
-                <button className="btn btn-success" onClick={save}>Save</button>
+                <button 
+                  className="btn btn-success" 
+                  onClick={save} 
+                  disabled={!id || !name || !ayear} // Disable if any field is empty
+                >
+                  Save
+                </button>
                 <button className="btn btn-danger" onClick={cancel}>Cancel</button>
               </form>
             </div>

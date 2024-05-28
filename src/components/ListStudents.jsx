@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import StudentService from '../services/StudentService';
+import { Navbar, Form, Button, Row, Col } from 'react-bootstrap';
 
 const ListStudents = () => {
   const [students, setStudents] = useState([]);
   const navigate = useNavigate();
+  const [searchInput, setSearchInput] = useState('');
 
   useEffect(() => {
     StudentService.getStudents().then(response => {
@@ -17,6 +19,14 @@ const ListStudents = () => {
     navigate('/addStudent');
   };
 
+  const findStudent = (id) => {
+    navigate(`/findStudent/${id}`);
+  };
+
+  const handleInputChange = (event) => {
+    setSearchInput(event.target.value);
+  };
+
   const deleteStudent = (id) => {
     navigate(`/deleteStudent/${id}`);
   };
@@ -24,7 +34,29 @@ const ListStudents = () => {
   return (
     <div>
       <h1 className='text-center'>List Of Students Page</h1>
-      <button className='btn btn-primary' onClick={addStudent}>Add Student</button>
+
+      <Navbar className="bg-body-tertiary justify-content-between">
+        <Form inline>
+          <button className='btn btn-primary' onClick={addStudent}>Add Student</button>
+        </Form>
+        <Form inline>
+          <Row>
+            <Col xs="auto">
+              <Form.Control
+                type="text"
+                placeholder="Search"
+                className=" mr-sm-2"
+                value={searchInput}
+                onChange={handleInputChange}
+              />
+            </Col>
+            <Col xs="auto">
+              <Button type="submit" onClick={() => findStudent(searchInput)}>Submit</Button>
+            </Col>
+          </Row>
+        </Form>
+      </Navbar>
+
       <table className="table table-striped">
         <thead>
           <tr>

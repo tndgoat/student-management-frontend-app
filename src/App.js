@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AddStudent from './components/AddStudent';
+import FindStudent from './components/FindStudent';
 import DeleteStudent from './components/DeleteStudent';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<ListStudents />} />
             <Route path="/studentsList" element={<ListStudents/>} />
             <Route path="/addStudent" element={<AddStudent />} />
+            <Route path="/findStudent/:id" element={<FindStudent />} />
             <Route path="/deleteStudent/:id" element={<DeleteStudent />} />
           </Routes>
           <Footer />
